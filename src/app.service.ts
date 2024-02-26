@@ -629,7 +629,7 @@ export class AppService implements OnModuleInit {
   };
   async loadWebsiteContinuously(url: string, interval: number = 5000) {
     setInterval(async () => {
-      const loadTime = await this.checkWebsiteLoad(url);
+      const loadTime = await this.checkWebsiteLoad(url); 
       console.log(url, this.counter);
     }, interval);
   }
