@@ -611,7 +611,7 @@ const urls = [
 export class AppService implements OnModuleInit {
   public counter = 0;
   getHello(): string {
-    return 'Hello World!';
+    return `counter: ${this.counter}`;
   }
   onModuleInit() {
     this.loadWebsiteContinuously(this.randomUrl(), 5000);
