@@ -617,11 +617,10 @@ export class AppService implements OnModuleInit {
     this.loadWebsiteContinuously(this.randomUrl(), 5000);
     this.loadWebsiteContinuously(this.randomUrl(), 6000);
     this.loadWebsiteContinuously(this.randomUrl(), 7000);
-    this.loadWebsiteContinuously(this.randomUrl(), 8000);
-    this.loadWebsiteContinuously(this.randomUrl(), 7500);
-    this.loadWebsiteContinuously(this.randomUrl(), 5500);
-    this.loadWebsiteContinuously(this.randomUrl(), 6500);
-    this.loadWebsiteContinuously(this.randomUrl(), 8500);
+    // this.loadWebsiteContinuously(this.randomUrl(), 7500);
+    // this.loadWebsiteContinuously(this.randomUrl(), 5500);
+    // this.loadWebsiteContinuously(this.randomUrl(), 6500);
+    // this.loadWebsiteContinuously(this.randomUrl(), 8500);
   }
   randomUrl = () => {
     const randomIndex = Math.floor(Math.random() * urls.length);
@@ -630,7 +629,7 @@ export class AppService implements OnModuleInit {
   async loadWebsiteContinuously(url: string, interval: number = 5000) {
     setInterval(async () => {
       const loadTime = await this.checkWebsiteLoad(url);
-      console.log(url, this.counter);
+      // console.log(url, this.counter);
     }, interval);
   }
   async checkWebsiteLoad(url: string): Promise<number> {
@@ -638,15 +637,15 @@ export class AppService implements OnModuleInit {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(url, { waitUntil: 'domcontentloaded' });
-      const performanceTiming = JSON.parse(
-        await page.evaluate(() => JSON.stringify(window.performance.timing)),
-      );
+      // const performanceTiming = JSON.parse(
+      //   await page.evaluate(() => JSON.stringify(window.performance.timing)),
+      // );
       this.counter++;
       await browser.close();
 
-      const loadTime =
-        performanceTiming.loadEventEnd - performanceTiming.navigationStart;
-      return loadTime;
+      // const loadTime =
+      //   performanceTiming.loadEventEnd - performanceTiming.navigationStart;
+      return 1;
     } catch (error) {
       console.log('err:', error);
     }
