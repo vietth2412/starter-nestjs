@@ -628,13 +628,18 @@ export class AppService implements OnModuleInit {
   };
   async loadWebsiteContinuously(url: string, interval: number = 5000) {
     setInterval(async () => {
-      const loadTime = await this.checkWebsiteLoad(url);
+      try {
+        await this.checkWebsiteLoad(url);
+      } catch (error) {
+        console.log('wrapper error:', error);
+      }
+      // const loadTime = await this.checkWebsiteLoad(url);
       // console.log(url, this.counter);
     }, interval);
   }
   async checkWebsiteLoad(url: string): Promise<number> {
+    const browser = await puppeteer.launch();
     try {
-      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       // const performanceTiming = JSON.parse(
@@ -647,6 +652,7 @@ export class AppService implements OnModuleInit {
       //   performanceTiming.loadEventEnd - performanceTiming.navigationStart;
       return 1;
     } catch (error) {
+      await browser.close();
       console.log('err:', error);
     }
   }
